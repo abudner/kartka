@@ -1,0 +1,120 @@
+.one{
+	background:#ff8080;
+	color: black;
+	border: 1px solid brown;
+	}
+.two{
+	background:#ffff80;
+	color: black;
+	border: 1px solid brown;
+	}
+.three{
+	background:#FF0000;
+	color: black;
+	border: 1px solid brown;
+	}
+.four{
+	background:#00ff80;
+	color: black;
+	border: 1px solid brown;
+	}
+.five{
+	background:#80FFFF;
+	color: black;
+	border: 1px solid brown;
+	}
+.six{
+	background:#0080FF;
+	color: black;
+	border: 1px solid brown;
+	}
+.seven{
+	background:#FFFF00;
+	color: black;
+	border: 1px solid brown;
+	}
+.eight{
+	background:#FF80FF;
+	color: black;
+	border: 1px solid brown;
+	}
+.nine{
+	background:#80FF00;
+	color: black;
+	border: 1px solid brown;
+	}
+.ten{
+	background:#ff00FF;
+	color: black;
+	border: 1px solid brown;
+	}
+.eleven{
+	background:#804040;
+	color: black;
+	border: 1px solid brown;
+	}
+.twelve{
+	background:#FF8000;
+	color: black;
+	border: 1px solid brown;
+	}
+.thirteen{
+	background:#008000;
+	color: black;
+	border: 1px solid brown;
+	}
+.fourteen{
+	background:#0000FF;
+	color: black;
+	border: 1px solid brown;
+	}
+.fiveteen{
+	background:#800080;
+	color: black;
+	border: 1px solid brown;
+	}
+.sixteen{
+	background:#400080;
+	color: black;
+	border: 1px solid brown;
+	}
+.seventeen{
+	background:#400000;
+	color: black;
+	border: 1px solid brown;
+	}
+.eighteen{
+	background:#000000;
+	color: black;
+	border: 1px solid brown;
+	}
+.nineteen{
+	background:#808080;
+	color: black;
+	border: 1px solid brown;
+	}
+.twenty{
+	background:#808000;
+	color: black;
+	border: 1px solid brown;
+	}
+.twentyone{
+	background:#008080;
+	color: black;
+	border: 1px solid brown;
+	}
+.twentytwo{
+	background:#FFFFFF;
+	color: black;
+	border: 1px solid brown;
+	}
+	
+.gradient-bg {
+background: -webkit-gradient(linear, left center, right center, from(red), color-stop(14%, orange), color-stop(28%, yellow), color-stop(42%, green), color-stop(56%, blue), color-stop(70%, indigo), to(violet));
+background: -moz-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
+
+
+
+ 
+  
+}

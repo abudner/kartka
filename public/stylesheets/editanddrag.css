@@ -1,0 +1,139 @@
+.intLink {
+	cursor: pointer;
+}
+img.intLink {
+	border: 0;
+}
+#toolBar1 select {
+	font-size: 10px;
+}
+
+
+
+#editt {
+	position: relative;
+	top: -70px;
+	width: 470px;
+	height: 300px;
+	border: 1px#CEB46D solid; 
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	padding: 2px;
+	background: #ffffff;
+	overflow: hidden; -webkit-box-shadow: 0px 0px 30px#CEB46D; -moz-box-shadow: 0px 0px 30px#CEB46D;
+	box-shadow: 0px 0px 30px#CEB46Df;
+}
+#editt#sourceText {
+	padding: 0;
+	margin: 0;
+	min-width: 498px;
+	min-height: 200px;
+}
+#editMode label {
+	cursor: pointer;
+}
+#container {
+	position: relative;
+}
+#imageView {
+	border: 1px solid #000;
+			}
+			# imageTemp {
+		position: absolute;
+		top: 1px;
+		left: 1px;
+	}
+.imagebutton {
+		height: 22;
+		width: 23;
+	}
+.image {
+		position: relative;
+		left: 1;
+		top: 1;
+		height: 20;
+		width: 21;
+		border: none;
+	}
+.toolbar {
+		width: 100px;
+		height: 100px;
+	}
+#draggable2 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: 345px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/cake.png);
+	}
+#draggable3 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: 235px;
+		left: 130px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/rings-icon.png);
+	}
+#draggable4 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: 140px;
+		left: 260px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/rose.png);
+	}
+#draggable5 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: 30px;
+		left: 400px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/santa.png);
+	}
+#draggable6 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: -75px;
+		left: 500px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/egg.png);
+	}
+#draggable7 {
+		width: 90px;
+		height: 90px;
+		padding: 0.5em;
+		position: relative;
+		top: -195px;
+		left: 730px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/flower.png);
+	}
+#draggable8 {
+		width: 80px;
+		height: 80px;
+		padding: 0.5em;
+		position: relative;
+		top: -300px;
+		left: 610px;
+		margin: 10px 10px 10px 0;
+		background-image: url(../images/graduated.png);
+	}
+#droppable {
+				width: 470px;
+				height: 300px;
+				padding: 0.5em;
+				float: left;
+				margin: 10px;
+				position:relative;
+				top:-170px;
+			}
