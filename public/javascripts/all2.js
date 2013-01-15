@@ -1,7 +1,5 @@
-/*jslint unparam: true, sloppy: true, devel: true, node: true, windows: true */
-/*global $: false, document: false, console: false, window: false, FileReader: false, jNotify: false, CodeMirror: false */
-var zmientlo;
-var iduser = 0;
+﻿/*jslint unparam: true, sloppy: true, devel: true, node: true, windows: true, newcap: true */
+/*global $: false, document: false, console: false, window: false, smoke: false, parent: false, evt: false */
 var command = "",
     InitToolbarButtons,
     tbmousedown,
@@ -19,17 +17,18 @@ var command = "",
     content,
     edytuj,
     usun,
-    pobierzId;
+    pobierzId,
+    iduser = 0,
+    zmientlo;
 
 
 $(document).ready(function () {
     var zalogowany = 0;
     $.get("sesja.php", function (data) {
-
         if (data === 'false') {
-
             $('#logowanie').modal({
-                keyboard: false
+                keyboard: false,
+                mouse: false
             });
             $('#uzytzalog').hide();
             $('#logowanie').modal('show');
@@ -39,8 +38,9 @@ $(document).ready(function () {
             $('#uzytzalog').show();
             pobierzId();
         }
-
-
+    });
+    $('#logowanie').on('hidden', function (e) {
+        //if(zalogowany == 0) $('#logowanie').modal('show');
     });
     $('#zarejestruj').click(function () {
         $.post("register.php", $("#rejestracjaform").serialize(),
@@ -66,6 +66,8 @@ $(document).ready(function () {
 
 
     $('#logowaniebut').click(function () {
+        $("#loglogin").waliduj();
+        $("#loghaslo").waliduj();
         $.post("login.php", $("#loginform").serialize(),
 
             function (data) {
@@ -175,7 +177,7 @@ showCard = function () {
 
 tbmousedown = function (e) {
     'use strict';
-    var evt = e ? e : window.event;
+    var evt = e || window.event;
     /*zdarzenie, kiedy klawisz mysz zostanie nacisniety nad element*/
     this.firstChild.style.left = 2;
     this.firstChild.style.top = 2;
@@ -248,168 +250,169 @@ pobierzId = function () {
 
 
 insertNodeAtSelection = function (win, insertNode) {
-	'use strict';
-	var sel, range, container, pos, afterNode, textNode, text, textBefore, textAfter, beforeNode;
-	/*proba uzyskania biezaczego zaznaczenia*/
-	sel = win.getSelection();
+    'use strict';
+    var sel, range, container, pos, afterNode, textNode, text, textBefore, textAfter, beforeNode;
+    /*proba uzyskania biezaczego zaznaczenia*/
+    sel = win.getSelection();
 
-	/*proba uzyskania pierwszego zakresu wyboru*/
-	range = sel.getRangeAt(0);
+    /*proba uzyskania pierwszego zakresu wyboru*/
+    range = sel.getRangeAt(0);
 
-	/*odzanczenie wszystkiego*/
-	sel.removeAllRanges();
+    /*odzanczenie wszystkiego*/
+    sel.removeAllRanges();
 
-	/*usuniecie zawartosci biezacego zaznaczenia*/
-	range.deleteContents();
+    /*usuniecie zawartosci biezacego zaznaczenia*/
+    range.deleteContents();
 
-	/*uzyskanie lokalizacji aktualnego zaznaczenia*/
-	container = range.startContainer;
-	pos = range.startOffset;
+    /*uzyskanie lokalizacji aktualnego zaznaczenia*/
+    container = range.startContainer;
+    pos = range.startOffset;
 
-	/*stworzenie nowego zakresu wyboru*/
-	range = document.createRange();
+    /*stworzenie nowego zakresu wyboru*/
+    range = document.createRange();
 
-	if (container.nodeType === 3 && insertNode.nodeType === 3) {
+    if (container.nodeType === 3 && insertNode.nodeType === 3) {
 
-		/*jezeli wstawimy tekst w wezle tekstowym , robimy zoptymalizowane wstawienie*/
-		container.insertData(pos, insertNode.nodeValue);
+        /*jezeli wstawimy tekst w wezle tekstowym , robimy zoptymalizowane wstawienie*/
+        container.insertData(pos, insertNode.nodeValue);
 
-		/*umieszczamy kursor po wstawionym tekscie*/
-		range.setEnd(container, pos + insertNode.length);
-		range.setStart(container, pos + insertNode.length);
+        /*umieszczamy kursor po wstawionym tekscie*/
+        range.setEnd(container, pos + insertNode.length);
+        range.setStart(container, pos + insertNode.length);
 
-	} else {
+    } else {
 
-		if (container.nodeType === 3) {
+        if (container.nodeType === 3) {
 
-			/*kiedy wstawiamy do wezla tekstu, tworzymy 2 nowe wezly tekstu i umieszczamy pomiedzy insertNode*/
-			textNode = container;
-			container = textNode.parentNode;
-			text = textNode.nodeValue;
+            /*kiedy wstawiamy do wezla tekstu, tworzymy 2 nowe wezly tekstu i umieszczamy pomiedzy insertNode*/
+            textNode = container;
+            container = textNode.parentNode;
+            text = textNode.nodeValue;
 
-			/*tekst przed podzieleniem*/
-			textBefore = text.substr(0, pos);
-			/*tekst po podzieleniem*/
-			textAfter = text.substr(pos);
+            /*tekst przed podzieleniem*/
+            textBefore = text.substr(0, pos);
+            /*tekst po podzieleniem*/
+            textAfter = text.substr(pos);
 
-			beforeNode = document.createTextNode(textBefore);
-			afterNode = document.createTextNode(textAfter);
+            beforeNode = document.createTextNode(textBefore);
+            afterNode = document.createTextNode(textAfter);
 
-			/*wstawiam 3 nowe wezly przed starszym*/
-			container.insertBefore(afterNode, textNode);
-			container.insertBefore(insertNode, afterNode);
-			container.insertBefore(beforeNode, insertNode);
+            /*wstawiam 3 nowe wezly przed starszym*/
+            container.insertBefore(afterNode, textNode);
+            container.insertBefore(insertNode, afterNode);
+            container.insertBefore(beforeNode, insertNode);
 
-			/*usuwamy starszy wezel*/
-			container.removeChild(textNode);
+            /*usuwamy starszy wezel*/
+            container.removeChild(textNode);
 
-		} else {
+        } else {
 
-			/*w przeciwnym wypadku wstawianie proste wezla*/
-			afterNode = container.childNodes[pos];
-			container.insertBefore(insertNode, afterNode);
-		}
+            /*w przeciwnym wypadku wstawianie proste wezla*/
+            afterNode = container.childNodes[pos];
+            container.insertBefore(insertNode, afterNode);
+        }
 
-		range.setEnd(afterNode, 0);
-		range.setStart(afterNode, 0);
-	}
+        range.setEnd(afterNode, 0);
+        range.setStart(afterNode, 0);
+    }
 
-	sel.addRange(range);
+    sel.addRange(range);
 };
 
 getOffsetTop = function (elm) {
-	'use strict';
-	var mOffsetTop, mOffsetParent;
-	/*uzyskanie przesuniecia w gore*/
-	mOffsetTop = elm.offsetTop;
-	mOffsetParent = elm.offsetParent;
+    'use strict';
+    var mOffsetTop, mOffsetParent;
+    /*uzyskanie przesuniecia w gore*/
+    mOffsetTop = elm.offsetTop;
+    mOffsetParent = elm.offsetParent;
 
-	while (mOffsetParent) {
-		mOffsetTop += mOffsetParent.offsetTop;
-		mOffsetParent = mOffsetParent.offsetParent;
-	}
+    while (mOffsetParent) {
+        mOffsetTop += mOffsetParent.offsetTop;
+        mOffsetParent = mOffsetParent.offsetParent;
+    }
 
-	return mOffsetTop;
+    return mOffsetTop;
 };
 
 getOffsetLeft = function (elm) {
-	'use strict';
-	var mOffsetLeft, mOffsetParent;
-	/*uzyskanie przesuniecia w lewo*/
-	mOffsetLeft = elm.offsetLeft;
-	mOffsetParent = elm.offsetParent;
+    'use strict';
+    var mOffsetLeft, mOffsetParent;
+    /*uzyskanie przesuniecia w lewo*/
+    mOffsetLeft = elm.offsetLeft;
+    mOffsetParent = elm.offsetParent;
 
-	while (mOffsetParent) {
-		mOffsetLeft += mOffsetParent.offsetLeft;
-		mOffsetParent = mOffsetParent.offsetParent;
-	}
+    while (mOffsetParent) {
+        mOffsetLeft += mOffsetParent.offsetLeft;
+        mOffsetParent = mOffsetParent.offsetParent;
+    }
 
-	return mOffsetLeft;
+    return mOffsetLeft;
 };
 
 tbclick = function () {
     /*funckja odpowiadajaca z kolor czcionki , tla , tworzenia linku i wstawiania obrazka*/
-	if ((this.id === "forecolor") || (this.id === "backcolor")) {
-		parent.command = this.id;
-		buttonElement = document.getElementById(this.id);
-		document.getElementById("colorpalette").style.left = getOffsetLeft(buttonElement);
-		document.getElementById("colorpalette").style.top = getOffsetTop(buttonElement) + buttonElement.offsetHeight;
-		document.getElementById("colorpalette").style.visibility = "visible";
-	} else if (this.id === "createlink") {
-		var szURL = prompt("Enter a URL:", "http://");
-		if ((szURL !== null) && (szURL !== "")) {
-			document.getElementById('editt').contentWindow.document.execCommand("CreateLink", false, szURL);
-		}
-	} else if (this.id === "createimage") {
-		imagePath = prompt('Enter Image URL:', 'http://');
-		if ((imagePath !== null) && (imagePath !== "")) {
-			document.getElementById('editt').contentWindow.document.execCommand('InsertImage', false, imagePath);
-		}
-	} else {
-		document.getElementById('editt').contentWindow.document.execCommand(this.id, false, null);
-	}
+    var buttonElement, szURL, imagePath;
+    if ((this.id === "forecolor") || (this.id === "backcolor")) {
+        parent.command = this.id;
+        buttonElement = document.getElementById(this.id);
+        document.getElementById("colorpalette").style.left = getOffsetLeft(buttonElement);
+        document.getElementById("colorpalette").style.top = getOffsetTop(buttonElement) + buttonElement.offsetHeight;
+        document.getElementById("colorpalette").style.visibility = "visible";
+    } else if (this.id === "createlink") {
+        szURL = prompt("Enter a URL:", "http://");
+        if ((szURL !== null) && (szURL !== "")) {
+            document.getElementById('editt').contentWindow.document.execCommand("CreateLink", false, szURL);
+        }
+    } else if (this.id === "createimage") {
+        imagePath = prompt('Enter Image URL:', 'http://');
+        if ((imagePath !== null) && (imagePath !== "")) {
+            document.getElementById('editt').contentWindow.document.execCommand('InsertImage', false, imagePath);
+        }
+    } else {
+        document.getElementById('editt').contentWindow.document.execCommand(this.id, false, null);
+    }
 };
 
 Select = function (selectname) {
-	'use strict';
-	var cursel, selected;
-	/*funckja odpowiednia za selecty, wyboru czcionki , paragrafu i rozmiaru czcionki*/
-	cursel = document.getElementById(selectname).selectedIndex;
-	/*pierwszy jest zawsze etykieta*/
-	if (cursel !== 0) {
-		selected = document.getElementById(selectname).options[cursel].value;
-		document.getElementById('editt').contentWindow.document.execCommand(selectname, false, selected);
-		document.getElementById(selectname).selectedIndex = 0;
-	}
-	document.getElementById("editt").contentWindow.focus();
+    'use strict';
+    var cursel, selected;
+    /*funckja odpowiednia za selecty, wyboru czcionki , paragrafu i rozmiaru czcionki*/
+    cursel = document.getElementById(selectname).selectedIndex;
+    /*pierwszy jest zawsze etykieta*/
+    if (cursel !== 0) {
+        selected = document.getElementById(selectname).options[cursel].value;
+        document.getElementById('editt').contentWindow.document.execCommand(selectname, false, selected);
+        document.getElementById(selectname).selectedIndex = 0;
+    }
+    document.getElementById("editt").contentWindow.focus();
 };
 
 dismisscolorpalette = function () {
-	'use strict';
-	/*funcja odpowiada za odwolanie palety colorow czyli ukrycie */
-	document.getElementById("colorpalette").style.visibility = "hidden";
+    'use strict';
+    /*funcja odpowiada za odwolanie palety colorow czyli ukrycie */
+    document.getElementById("colorpalette").style.visibility = "hidden";
 };
 
 Start = function () {
-	'use strict';
-	/*funckja uruchamiana w body przy zaladowaniu strony*/
-	document.getElementById('editt').contentWindow.document.designMode = "on";
-	try {
-		document.getElementById('editt').contentWindow.document.execCommand("undo", false, null);
-	} catch (e) {
-		alert("Nie jest wspierane przez modul Mozilla");
-	}
+    'use strict';
+    /*funckja uruchamiana w body przy zaladowaniu strony*/
+    document.getElementById('editt').contentWindow.document.designMode = "on";
+    try {
+        document.getElementById('editt').contentWindow.document.execCommand("undo", false, null);
+    } catch (e) {
+        alert("Nie jest wspierane przez modul Mozilla");
+    }
 
-	InitToolbarButtons();
-	if (document.addEventListener) {
-		document.addEventListener("mousedown", dismisscolorpalette, true);
-		document.getElementById("editt").contentWindow.document.addEventListener("mousedown", dismisscolorpalette, true);
-		document.addEventListener("keypress", dismisscolorpalette, true);
-		document.getElementById("editt").contentWindow.document.addEventListener("keypress", dismisscolorpalette, true);
-	} else if (document.attachEvent) {
-		document.attachEvent("mousedown", dismisscolorpalette, true);
-		document.getElementById("editt").contentWindow.document.attachEvent("mousedown", dismisscolorpalette, true);
-		document.attachEvent("keypress", dismisscolorpalette, true);
-		document.getElementById("editt").contentWindow.document.attachEvent("keypress", dismisscolorpalette, true);
-	}
+    InitToolbarButtons();
+    if (document.addEventListener) {
+        document.addEventListener("mousedown", dismisscolorpalette, true);
+        document.getElementById("editt").contentWindow.document.addEventListener("mousedown", dismisscolorpalette, true);
+        document.addEventListener("keypress", dismisscolorpalette, true);
+        document.getElementById("editt").contentWindow.document.addEventListener("keypress", dismisscolorpalette, true);
+    } else if (document.attachEvent) {
+        document.attachEvent("mousedown", dismisscolorpalette, true);
+        document.getElementById("editt").contentWindow.document.attachEvent("mousedown", dismisscolorpalette, true);
+        document.attachEvent("keypress", dismisscolorpalette, true);
+        document.getElementById("editt").contentWindow.document.attachEvent("keypress", dismisscolorpalette, true);
+    }
 };

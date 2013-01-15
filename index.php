@@ -13,6 +13,7 @@
 			<script src="public/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
 			<script src="public/javascripts/jquery.kwicks-1.5.1.pack.js" type="text/javascript"></script>
 			<script src="public/javascripts/all.js" type="text/javascript"></script>
+			<script src="public/javascripts/plugin.js" type="text/javascript"></script>
 			<script src="public/javascripts/all2.js" type="text/javascript"></script>
 			<script src="public/javascripts/colors.js" type="text/javascript"></script>
 			<script src="public/javascripts/jquery.ui.core.js"></script>
@@ -38,7 +39,7 @@
 		
 		
 		
-			    <div id="logowanie" class="modal hide fade">
+			    <div id="logowanie" class="modal hide fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-body">
 <ul class="nav nav-tabs" id="myTab">
 <li class="active"><a href="#log">Logowanie</a></li>
